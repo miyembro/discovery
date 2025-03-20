@@ -58,4 +58,16 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            cleanWs()  // Clean the workspace
+        }
+        success {
+            echo "Pipeline succeeded!"
+        }
+        failure {
+            echo "Pipeline failed!"
+        }
+    }
 }
