@@ -37,5 +37,4 @@ spec:
     - name: http
       port: 8761
       targetPort: 8761
-      nodePort: 30075  # Exposed on the Node (Accessible Locally)
-  type: NodePort
+  type: ClusterIP
