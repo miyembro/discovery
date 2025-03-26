@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  discovery-service:
+    image: ${DOCKERHUB_USERNAME}/discovery-miyembro:latest
+    networks:
+      - miyembro-network
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+      - zipkin
+
+networks:
+  miyembro-network:
+    external: true  # Uses existing network
